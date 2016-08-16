@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redisvmdk1
+spec:
+  containers:
+  - name: redis1
+    image: redis
+    volumeMounts:
+    - name: vmdk-storage
+      mountPath: /data/
+  - name: redis2
+    image: nginx
+    volumeMounts:
+    - name: vmfs-vmdk-storage
+      mountPath: /data1/
+  volumes:
+  - name: vmdk-storage
+    vsphereVolume:
+        volumePath: "[vsanDatastore] volumes/test6.vmdk"
+  - name: vmfs-vmdk-storage
+    vsphereVolume:
+        volumePath: "[Datastore] volumes/testdir3.vmdk"
