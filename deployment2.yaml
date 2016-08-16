@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redisvmdk
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        volumeMounts:
+        - name: vmdk-storage
+          mountPath: /data/
+      volumes:
+      - name: vmdk-storage
+        persistentVolumeClaim:
+          claimName: myclaim1
